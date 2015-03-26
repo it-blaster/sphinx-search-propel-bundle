@@ -1,0 +1,23 @@
+{
+    "name": "it-blaster/sphinx-search-propel-bundle",
+    "description": "Symfony2. Sphinx search this site with the use Propel ORM.",
+    "type": "symfony-bundle",
+    "keywords": ["seo", "i18n"],
+    "homepage": "https://github.com/it-blaster/sphinx-search-propel-bundle",
+    "license" : "MIT",
+    "authors": [
+        {
+            "name": "IT-Blaster",
+            "email": "it-blaster@yandex.ru"
+        }
+    ],
+    "require": {
+        "symfony/symfony": ">=2.2",
+        "propel/propel1": "~1.6"
+    },
+    "autoload": {
+        "psr-0": { "ItBlaster\\SphinxSearchPropelBundle": "" }
+    },
+    "minimum-stability": "dev",
+    "target-dir": "ItBlaster/SphinxSearchPropelBundle"
+}
