@@ -1,6 +1,8 @@
 SphinxSearchPropelBundle
 ====================
 
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/it-blaster/sphinx-search-propel-bundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/it-blaster/sphinx-search-propel-bundle/?branch=master) [![Build Status](https://scrutinizer-ci.com/g/it-blaster/sphinx-search-propel-bundle/badges/build.png?b=master)](https://scrutinizer-ci.com/g/it-blaster/sphinx-search-propel-bundle/build-status/master)
+
 Symfony2. Sphinx search this site with the use Propel ORM
 
 Installation
