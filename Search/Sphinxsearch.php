@@ -146,25 +146,29 @@ class Sphinxsearch
         }
 
         if ($escape) {
-            $query = $this->sphinx->escapeString($query);
+            $query = $this->getClient()->escapeString($query);
         }
 
-        $qIndex = implode(' ', $indexes);
-
-        $results = $this->sphinx->query($query, $qIndex);
-
-        if (!is_array($results)) {
-            throw new \RuntimeException(sprintf('Searching for "%s" failed. Result is not an array. Error "%s"', $query, $this->sphinx->getLastError()));
+        foreach($indexes as $index) {
+            $this->getClient()->AddQuery ( $query, $index);
         }
+        $results = $this->getClient()->RunQueries();
 
-        if (!isset($results['status'])) {
-            throw new \RuntimeException(sprintf('Searching for "%s" failed. Result with no status. Error "%s"', $query, $this->sphinx->getLastError()));
+        if($results && count($results)) {
+            foreach ($results as $result) {
+                if (!is_array($result)) {
+                    throw new \RuntimeException(sprintf('Searching for "%s" failed. Result is not an array. Error "%s"', $query, $this->sphinx->getLastError()));
+                }
+
+                if (!isset($result['status'])) {
+                    throw new \RuntimeException(sprintf('Searching for "%s" failed. Result with no status. Error "%s"', $query, $this->sphinx->getLastError()));
+                }
+
+                if ($result['status'] !== SEARCHD_OK && $result['status'] !== SEARCHD_WARNING) {
+                    throw new \RuntimeException(sprintf('Searching for "%s" failed. Result has bad status. Error "%s"', $query, $this->sphinx->getLastError()));
+                }
+            }
         }
-
-        if ($results['status'] !== SEARCHD_OK && $results['status'] !== SEARCHD_WARNING) {
-            throw new \RuntimeException(sprintf('Searching for "%s" failed. Result has bad status. Error "%s"', $query, $this->sphinx->getLastError()));
-        }
-
         return $results;
     }
 
@@ -174,12 +178,12 @@ class Sphinxsearch
      * @param  string|array   $index Index name(s) for search
      * @param  boolean $escape  Should the query to be escaped?
      *
-     * @return array           Search results
+     * @return SearchResult Search results
      *
      * @throws \InvalidArgumentException If $index is not valid
      * @throws \LogicException If bridge was not set
      */
-    public function searchEx($query, $index, $escape = true)
+    public function searchEx($query, $index, $escape = true, $locale = 'en')
     {
         if (!is_string($index) && !is_array($index)) {
             throw new \InvalidArgumentException('Index must be a string or an array');
@@ -195,11 +199,17 @@ class Sphinxsearch
 
         $results = $this->search($query, (is_string($index) ? array($index) : $index), $escape);
 
+        if (!is_array($results)) {
+            $results = array();
+        }
+
+        /*
         if (empty($results) || !empty($results['error'])) {
             return $results;
         }
+        */
 
-        return $this->bridge->parseResults($results, $index);
+        return new SearchResult($this->getBridge()->parseResults($results, $index, $locale));
     }
 
     /**
