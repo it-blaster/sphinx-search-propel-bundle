@@ -40,13 +40,14 @@ class ItBlasterSphinxSearchPropelExtension extends Extension
             $container->setParameter('it_blaster.sphinx_search_propel.indexes', $config['indexes']);
         }
 
-        if (isset($config['doctrine'])) {
-            $container->setParameter('it_blaster.sphinx_search_propel.doctrine.entity_manager', $config['doctrine']['entity_manager']);
+        if (isset($config['propel'])) {
+            $container->setParameter('it_blaster.sphinx_search_propel.propel.entity_manager', $config['propel']['entity_manager']);
         }
+
     }
 
     public function getAlias()
     {
-        return 'sphinx_search_propel';
+        return 'it_blaster_sphinx_search_propel';
     }
 }

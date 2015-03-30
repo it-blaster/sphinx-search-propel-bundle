@@ -57,7 +57,7 @@ class PropelBridge implements BridgeInterface
     public function getEntityManager()
     {
         if ($this->em === null) {
-            $this->setEntityManager($this->container->get('doctrine')->getManager($this->emName));
+            $this->setEntityManager($this->container->get('propel')->getManager($this->emName));
         }
 
         return $this->em;

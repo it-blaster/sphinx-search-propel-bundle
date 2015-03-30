@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<database
+        name="default"
+        defaultIdMethod="native"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://xsd.propelorm.org/1.7/database.xsd"
+        namespace="ItBlaster\SphinxSearchPropelBundle\Model">
+
+    <table name="reindex" description="Таск на переиндексацию сайта sphinx-ом">
+        <column name="id"       type="integer"  required="true" primaryKey="true" autoIncrement="true" />
+        <column name="status"   type="integer"  required="false" />
+
+        <behavior name="timestampable" />
+    </table>
+</database>

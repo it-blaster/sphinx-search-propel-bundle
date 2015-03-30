@@ -6,7 +6,7 @@ use SphinxClient;
 
 use ItBlaster\SphinxSearchPropelBundle\Exception\EmptyIndexException;
 use ItBlaster\SphinxSearchPropelBundle\Exception\NoSphinxAPIException;
-use ItBlaster\SphinxSearchPropelBundle\Doctrine\BridgeInterface;
+use ItBlaster\SphinxSearchPropelBundle\Search\BridgeInterface;
 
 
 /**

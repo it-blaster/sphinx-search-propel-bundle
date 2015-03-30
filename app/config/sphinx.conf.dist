@@ -1,0 +1,83 @@
+source lsParentSource
+{
+    type            = mysql
+    sql_host        = localhost
+    sql_user        = sql_user
+    sql_pass        = sql_pass
+    sql_db          = my_project
+    sql_port        = 3330
+
+    mysql_connect_flags     = 32 # 32- включение сжатие при обмене данными с БД
+
+    # Включам нужную кодировку соединения и выключаем кеш запросов
+    sql_query_pre           = SET NAMES utf8
+    sql_query_pre           = SET SESSION query_cache_type=OFF
+}
+
+source newsSource : lsParentSource
+{
+    sql_query = SELECT news_i18n.id, news_i18n.title as news_title, news_i18n.short_desc as news_short_desc, news_i18n.full_desc as news_full_desc FROM `news_i18n` LEFT JOIN `news` ON (news_i18n.id=news.id) WHERE news_i18n.active = 1
+}
+
+index newsIndex
+{
+        # Источник, который будет хранить данный индекса
+        source                  = newsSource
+        path                    = /home/user/projects/my_project/app/data/sphinx/indexes/news
+
+        # Тип хранения аттрибутов
+        docinfo                 = extern
+
+        mlock                   = 0
+
+        # Используемые морфологические движки
+        morphology              = stem_en, stem_ru
+
+        # Кодировака данных из источника
+        charset_type            = utf-8
+
+
+        # Из данных источника HTML-код нужно вырезать
+        html_strip              = 1
+
+        #поиск по частям
+        enable_star             = 1
+        min_infix_len           = 3
+        min_word_len            = 3
+
+        index_exact_words       = 1
+        expand_keywords         = 1
+
+        #Замена ё на е
+        charset_table = 0..9, A..Z->a..z, _, a..z, \
+            U+401->U+0435, U+451->U+435, U+410..U+42F->U+430..U+44F, U+430..U+44F
+}
+
+
+indexer
+{
+	# Лимит памяти, который может использавать демон-индексатор
+	mem_limit			= 32M
+}
+
+
+searchd
+{
+	# Ну и собственно номер порта демона searchd
+	port				= 3330
+
+	# Лог-файл демона
+	log					= /home/user/projects/my_project/app/logs/sphinx/searchd.log
+
+	# Лог поисковых запросов. Если закомментировать,то логировать поисковые строки не будет
+	query_log			= /home/user/projects/my_project/app/logs/sphinx/query.log
+
+	# Время в секундах, которое ждет демон при обмене данными с клиентом. По исчерпании происходит разрыв коннекта
+	read_timeout		= 5
+
+	# Максимальное количество одновременно-обрабатываемых запросов. 0 означает дофига, а точнее без ограничения
+	max_children		= 30
+
+	# Файл, в который сохраняется PID-процесса при запуске
+	pid_file			= /home/user/projects/my_project/app/logs/sphinx/searchd.pid
+}

@@ -61,6 +61,6 @@ class SphinxsearchExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'it_blaster_sphinxsearch_extension_0';
+        return 'it_blaster_sphinx_search_propel_extension_0';
     }
 }

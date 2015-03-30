@@ -3,7 +3,7 @@
 namespace ItBlaster\SphinxSearchPropelBundle\Bridge;
 
 /**
- * Doctrine bridge interface
+ * Propel bridge interface
  */
 interface BridgeInterface
 {

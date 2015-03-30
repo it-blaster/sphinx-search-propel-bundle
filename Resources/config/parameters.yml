@@ -1,3 +1,3 @@
 parameters:
-    it_blaster.sphinxsearch.search.class: ItBlaster\SphinxSearchPropelBundle\Search\Sphinxsearch
-    iakumai.sphinxsearch.doctrine.bridge.class: ItBlaster\SphinxSearchPropelBundle\Bridge\PropelBridge
+    it_blaster.sphinx_search_propel.search.class: ItBlaster\SphinxSearchPropelBundle\Search\Sphinxsearch
+    it_blaster.sphinx_search_propel.propel.bridge.class: ItBlaster\SphinxSearchPropelBundle\Bridge\PropelBridge

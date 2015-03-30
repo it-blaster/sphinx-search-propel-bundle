@@ -1,0 +1,12 @@
+it_blaster_sphinx_search_propel:
+     searchd:
+         # Хост для подключения к демону Sphinxc
+         host: localhost
+         # Порт для подключения к демону Sphinx
+         port: %sphinx_port%
+         # Файл сокета, если нужно подключаться к демону через сокет
+         #socket: /path/to/socket.file
+     indexes:
+         # Список индексов Sphinx (ключ) и имен Entity (значение)
+         # которые будут использоваться при поиске
+        newsIndex: "App\MyBundle\Model\\NewsQuery"

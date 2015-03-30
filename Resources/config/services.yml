@@ -1,6 +1,6 @@
 services:
     # Search Engine
-    iakumai.sphinx_search_propel.search:
+    it_blaster.sphinx_search_propel.search:
         class: %it_blaster.sphinx_search_propel.search.class%
         file: %it_blaster.sphinx_search_propel.sphinx_api.file%
         arguments:
@@ -10,7 +10,7 @@ services:
         calls:
             - [setBridge, [@it_blaster.sphinx_search_propel.propel.bridge]]
 
-    # Doctrine Bridge
+    # Propel Bridge
     it_blaster.sphinx_search_propel.propel.bridge:
         class: %it_blaster.sphinx_search_propel.propel.bridge.class%
         arguments: [@service_container, %it_blaster.sphinx_search_propel.propel.entity_manager%, %it_blaster.sphinx_search_propel.indexes%]
@@ -18,6 +18,6 @@ services:
     # Twig extension
     it_blaster.sphinx_search_propel.twig.extension_0:
         class: ItBlaster\SphinxSearchPropelBundle\Twig\SphinxsearchExtension
-        arguments: [@it_blaster.sphinxsearch.search]
+        arguments: [@it_blaster.sphinx_search_propel.search]
         tags:
             - {name: twig.extension}

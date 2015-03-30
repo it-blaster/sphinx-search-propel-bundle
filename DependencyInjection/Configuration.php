@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('sphinx_search_propel');
+        $rootNode = $treeBuilder->root('it_blaster_sphinx_search_propel');
 
         $rootNode
             ->children()
@@ -52,7 +52,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('doctrine')
+                ->arrayNode('propel')
                     ->addDefaultsIfNotSet()
                         ->children()
                         ->scalarNode('entity_manager')->defaultValue('default')->end()
