@@ -2,11 +2,11 @@
 
 namespace ItBlaster\SphinxSearchPropelBundle\Search;
 
+use ItBlaster\SphinxSearchPropelBundle\Bridge\BridgeInterface;
 use SphinxClient;
 
 use ItBlaster\SphinxSearchPropelBundle\Exception\EmptyIndexException;
 use ItBlaster\SphinxSearchPropelBundle\Exception\NoSphinxAPIException;
-use ItBlaster\SphinxSearchPropelBundle\Search\BridgeInterface;
 
 
 /**
