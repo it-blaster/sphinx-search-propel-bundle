@@ -51,6 +51,16 @@ class PropelBridge implements BridgeInterface
     }
 
     /**
+     * Индексы
+     *
+     * @return array
+     */
+    public function getIndexes()
+    {
+        return $this->indexes;
+    }
+
+    /**
      * Get an EntityManager
      * @return EntityManager
      */
