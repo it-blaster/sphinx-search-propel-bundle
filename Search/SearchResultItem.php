@@ -15,6 +15,7 @@ class SearchResultItem
     protected $parent_path_params = array();    //парамтры роута до родительского раздела
     protected $has_date = false;                //имеет ли объект поиска дату
 
+
     /**
      * Проставляем параметры объекта результата поиска
      *
