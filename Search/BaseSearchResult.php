@@ -41,6 +41,8 @@ abstract class BaseSearchResult
                     foreach ($result['matches'] as $result_match) {
                         if ($result_match['object']) {
                             $this->addResultItem($index, $result_match['object'], $result_match['weight']);
+                        } else {
+                            $this->setCount($this->getCount() - 1);
                         }
                     }
                 }
@@ -77,6 +79,7 @@ abstract class BaseSearchResult
     public function getPage($num = 1, $limit = 10)
     {
         $result = array();
+
         if (ceil($this->getCount() / $limit) >= $num && $num > 0) {
             $total = $this->getCount();
             $first = ($num - 1) * $limit;
@@ -84,6 +87,7 @@ abstract class BaseSearchResult
             $last = $last < $total ? $last : $total;
             $last -= 1;
             $i = $first;
+
             while ($i <= $last) {
                 $result[] = $this->result_items[$i++];
             }
