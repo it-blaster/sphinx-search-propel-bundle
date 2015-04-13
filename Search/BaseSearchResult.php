@@ -34,8 +34,8 @@ abstract class BaseSearchResult
      */
     protected function initResultItems()
     {
-        if(count($this->getResults())) {
-            foreach($this->getResults() as $result) {
+        if (count($this->getResults())) {
+            foreach ($this->getResults() as $result) {
                 if (isset($result['matches']) && count($result['matches'])) {
                     $index = $result['index'];
                     foreach ($result['matches'] as $result_match) {
@@ -71,22 +71,24 @@ abstract class BaseSearchResult
      *
      * @param int $num
      * @param int $limit
+     *
      * @return array
      */
-    public function getPage($num = 1, $limit=10)
+    public function getPage($num = 1, $limit = 10)
     {
         $result = array();
-        if ( ceil($this->getCount()/$limit)>=$num ) {
+        if (ceil($this->getCount() / $limit) >= $num && $num > 0) {
             $total = $this->getCount();
-            $first = ($num-1)*$limit;
-            $last = $first+$limit;
-            $last = $last<$total ? $last : $total;
-            $last-=1;
+            $first = ($num - 1) * $limit;
+            $last = $first + $limit;
+            $last = $last < $total ? $last : $total;
+            $last -= 1;
             $i = $first;
-            while ($i<=$last) {
+            while ($i <= $last) {
                 $result[] = $this->result_items[$i++];
             }
         }
+
         return $result;
     }
 
@@ -94,15 +96,17 @@ abstract class BaseSearchResult
      * Номер последней страницы
      *
      * @param int $limit
+     *
      * @return float|int
      */
-    public function getLastPage($limit=10)
+    public function getLastPage($limit = 10)
     {
         $total = $this->getCount();
         $last_page = 0;
         if ($total) {
-            $last_page = intval(ceil($total/$limit));
+            $last_page = intval(ceil($total / $limit));
         }
+
         return $last_page;
     }
 
