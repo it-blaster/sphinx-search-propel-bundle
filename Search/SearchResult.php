@@ -9,6 +9,7 @@ use Etfostra\ContentBundle\Model\Page;
 use Artsofte\MainBundle\Model\Document;
 use Artsofte\MainBundle\Model\Service;
 use Artsofte\MainBundle\Model\Solution;
+use Artsofte\MainBundle\Model\SolutionGroup;
 
 class SearchResult extends BaseSearchResult
 {
@@ -40,6 +41,7 @@ class SearchResult extends BaseSearchResult
                 case 'productIndex':  $this->setParamsProduct($result_item); break;
                 case 'serviceIndex':  $this->setParamsService($result_item); break;
                 case 'solutionIndex':  $this->setParamsSolution($result_item); break;
+                case 'solutionGroupIndex':  $this->setParamsSolutionGroup($result_item); break;
                 case 'contactIndex':  $this->setParamsContact($result_item); break;
             }
 
@@ -178,6 +180,28 @@ class SearchResult extends BaseSearchResult
             'desc'                  => $object->getDescription(),
             'path_name'             => 'solution_list',
             'path_params'           => array('slug' => $object->getSolutionGroup()->getSlug()),
+            'parent_title'          => 'Solution',
+            'parent_path_name'      => 'solution_index',
+            'parent_path_params'    => array()
+        );
+        $result_item->setParams($params);
+    }
+
+    /**
+     * Параметры решения
+     *
+     * @param SearchResultItem $result_item
+     */
+    protected function setParamsSolutionGroup(SearchResultItem &$result_item)
+    {
+        /** @var SolutionGroup $object */
+        $object = $result_item->getObject();
+
+        $params = array(
+            'title'                 => $object->getTitle(),
+            'desc'                  => $object->getDescription(),
+            'path_name'             => 'solution_list',
+            'path_params'           => array('slug' => $object->getSlug()),
             'parent_title'          => 'Solution',
             'parent_path_name'      => 'solution_index',
             'parent_path_params'    => array()
